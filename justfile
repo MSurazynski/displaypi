@@ -5,4 +5,4 @@ sync:
 
 run: sync
     @echo "Running..."
-    git display_image.py 
+    python3 display_image.py 
