@@ -1,7 +1,7 @@
 sync:
     @echo "Starting syncing..."
     git pull
-    @echo "Finishes syncing..."
+    @echo "Finished syncing..."
 
 run: sync
     @echo "Running..."
