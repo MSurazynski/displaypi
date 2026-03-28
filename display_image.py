@@ -29,3 +29,6 @@ except KeyboardInterrupt:
     logging.info("Interrupted")
     epd.sleep()
     exit()
+except Exception as e:
+    logging.error(f"Error: {e}")
+    epd.sleep()
