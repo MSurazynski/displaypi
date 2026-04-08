@@ -40,7 +40,6 @@ result['more-than-three'] = False
 
 for task in all_tasks:
     if task.get("due") and str(task["due"]["date"]) == TODAY:
-        print(task["content"])
         result['tasks'].append({"title": task["content"]})
 
 if len(result['tasks']) > 3:
