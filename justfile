@@ -7,7 +7,7 @@ sync:
 
 run: sync
     @echo "Running..."
-    venv/bin/python3 display_image.py 
+    display_image.py 
 
 convert: sync
     @echo "Running..."
