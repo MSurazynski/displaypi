@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="absolute w-full h-full bg-background-sky">
-      <div className="my-12 mx-8">
+      <div className="my-16 mx-8">
         <div className="flex justify-center gap-8 bg-primary p-4 rounded-xl">
           {weatherData.map((entry) => (
             <div key={entry.hour} className="flex flex-col items-center">
