@@ -19,7 +19,7 @@ ss:
     mv image.png images-to-convert/image.png
     python3 convert.py
 
-ss-rpi:
+ss-rpi: sync:
     python3 weather.py
     python3 tasks.py
     pkill -f "npm run dev" || true
