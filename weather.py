@@ -18,11 +18,11 @@ result = []
 
 for time, temp, weather_code in zip(data["hourly"]["time"], data["hourly"]["temperature_2m"], data["hourly"]["weather_code"]):
     hour = datetime.fromisoformat(time).hour
-    if hour in [7, 13, 16, 19]:
+    if hour in [8, 12, 14, 18]:
         print(f"{time}: {temp}°C")
         result.append({
             "hour": hour,
-            "temp": temp,
+            "temp": round(temp),
             "weather_code": weather_code
         })
 
