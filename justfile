@@ -10,3 +10,9 @@ run: sync
 convert: sync
     @echo "Running..."
     python3 convert.py
+
+ss: 
+    shot-scraper http://localhost:5173 -o image.png --width 480 --height 800
+    rm --force images-to-convert/*
+    mv image.png images-to-convert/image.png
+    python3 convert.py

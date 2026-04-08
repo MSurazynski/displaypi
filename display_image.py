@@ -16,7 +16,7 @@ try:
     epd.Clear()
 
     logging.info("Loading image...")
-    img = Image.open("cycle_images_converted/converted.bmp")  # Must be 800x480
+    img = Image.open("images-converted/image.bmp")  # Must be 800x480
     img = img.resize((epd.width, epd.height))  # Safety resize
 
     logging.info("Displaying image...")

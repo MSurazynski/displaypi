@@ -1,6 +1,10 @@
 from PIL import Image
 
-img = Image.open("cycle_images_source/image.jpg")
+img = Image.open("images-to-convert/image.png")
+
+if img.height > img.width:
+    img = img.rotate(90, expand=True)
+
 
 # Crop to 5:3 aspect ratio from center
 w, h = img.size
@@ -33,4 +37,4 @@ palette_img.putpalette([
 ] + [0] * (256 - 6) * 3)
 
 img = img.quantize(palette=palette_img)
-img.save("cycle_images_converted/converted.bmp")
+img.save("images-converted/image.bmp")
