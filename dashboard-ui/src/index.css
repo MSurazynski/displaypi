@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+
+@layer components {
+  .generic-shadow {
+    @apply shadow-md shadow-shadow inset-shadow-xs inset-shadow-inset-shadow
+  }
+
+  .generic-rounded {
+    @apply rounded-3xl
+  }
+
+  .generic-low-rounded {
+    @apply rounded-lg
+  }
+
+  .generic-border {
+    @apply border border-border
+  }
+}
+
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-out {
+  animation: fadeInOut 1.2s infinite;
+}
+
+@theme {
+  /* Fonts */
+  --font-heading: "Yanone Kaffeesatz", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui;
+
+  /* Background */
+  --color-background-low: oklch(1 0 0);
+  --color-background-med: oklch(0.98 0 0);
+  --color-background-high: oklch(0.96 0 0);
+  --color-background-sky: oklch(0.8688 0.0528 241.42);
+
+  /* Text */
+  --color-text: oklch(0 0 0);
+  --color-text-muted: oklch(0.5 0 0);
+
+  /* Border */
+  --color-highlight: oklch(1 0 0);
+  --color-border: oklch(0.5 0 0);
+  --color-border-muted: oklch(0.7 0 0);
+
+  /* Shadow */
+  --color-shadow: oklch(0.7 0 0);
+  --color-inset-shadow: oklch(0.85 0 0);
+
+  /* Actions */
+  --color-primary: oklch(0.7 0.15 235);
+  --color-secondary: oklch(0.9 0.15 86);
+
+  --color-secondary-blue: oklch(0.7 0.15 235);
+  --color-secondary-yellow: oklch(0.8 0.2 85);
+  --color-secondary-red: oklch(0.7 0.15 30);
+  --color-secondary-green: oklch(0.7 0.15 145);
+
+  /* Alerts */
+  --color-danger: oklch(0.6 0.25 40);
+  --color-warning: oklch(0.9 0.25 100);
+  --color-success: oklch(0.5 0.3 130);
+  --color-info: oklch(0.6 0.2 250);
+}
+
+/* Dark theme overrides */
+.dark {
+  /* Background */
+  --color-background-low: oklch(0 0.05 0);
+  --color-background-med: oklch(0.2 0 0);
+  --color-background-high: oklch(0.3 0 0);
+  --color-background-sky: oklch(0.22 0.03 241.42);
+
+  /* Text */
+  --color-text: oklch(1 0 0);
+  --color-text-muted: oklch(0.8 0 0);
+
+  /* Border */
+  --color-highlight: oklch(0 0 0);
+  --color-border: oklch(0.5 0 0);
+  --color-border-muted: oklch(0.3 0 0);
+
+  /* Shadow */
+  --color-shadow: oklch(0.4 0 0);
+  --color-inset-shadow: oklch(0.7 0 0);
+
+  /* Actions */
+  --color-primary: oklch(0.7 0.15 235);
+  --color-secondary: oklch(0.9 0.15 86);
+
+  --color-secondary-blue: oklch(0.7 0.15 235);
+  --color-secondary-yellow: oklch(0.9 0.15 85);
+  --color-secondary-red: oklch(0.7 0.15 30);
+  --color-secondary-green: oklch(0.7 0.15 145);
+
+  /* Alerts */
+  --color-danger: oklch(0.6 0.25 40);
+  --color-warning: oklch(0.9 0.25 100);
+  --color-success: oklch(0.5 0.3 130);
+  --color-info: oklch(0.6 0.2 250);
+}
+
+.prose ol {
+  list-style: decimal !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose ul {
+  list-style: disc !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose li::marker {
+  color: currentColor !important;
+}
