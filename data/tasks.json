@@ -2,13 +2,7 @@
   "tasks": [
     {
       "title": "Wymieni\u0107 filtr"
-    },
-    {
-      "title": "a"
-    },
-    {
-      "title": "b"
     }
   ],
-  "more-than-three": true
+  "more-than-three": false
 }
