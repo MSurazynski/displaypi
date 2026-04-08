@@ -25,7 +25,7 @@ ss-rpi: sync
     screen -S vite -X quit || true
     cd dashboard-page && screen -dmS vite npm run dev
     @echo "Wait for npm..."
-    sleep 10
+    sleep 3
     shot-scraper http://localhost:5173 -o image.png --width 480 --height 800
     screen -S vite -X quit || true
     rm --force images-to-convert/*
