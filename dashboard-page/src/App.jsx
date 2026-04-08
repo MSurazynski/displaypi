@@ -37,11 +37,11 @@ function App() {
 
   return (
     <div className="absolute w-full h-full bg-background-sky">
-      <div className="m-8">
+      <div className="my-12 mx-8">
         <div className="flex justify-center gap-8">
           {weatherData.map((entry) => (
             <div key={entry.hour} className="flex flex-col items-center">
-              <h2 className="text-text text-lg">
+              <h2 className="text-text text-xl font-semibold">
                 {entry.hour}:00
               </h2>
               <img src={getIcon(entry.weather_code)} className="w-22 h-22" />
