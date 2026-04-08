@@ -13,6 +13,7 @@ convert: sync
 
 ss: 
     python3 weather.py
+    python3 tasks.py
     shot-scraper http://localhost:5173 -o image.png --width 480 --height 800
     rm --force images-to-convert/*
     mv image.png images-to-convert/image.png
