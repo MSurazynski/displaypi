@@ -11,7 +11,7 @@ convert: sync
     @echo "Running..."
     python3 convert.py
 
-ss: 
+ss: sync 
     python3 weather.py
     python3 tasks.py
     shot-scraper http://localhost:5173 -o image.png --width 480 --height 800
@@ -19,7 +19,7 @@ ss:
     mv image.png images-to-convert/image.png
     python3 convert.py
 
-ss-rpi: sync:
+ss-rpi: sync
     python3 weather.py
     python3 tasks.py
     pkill -f "npm run dev" || true
