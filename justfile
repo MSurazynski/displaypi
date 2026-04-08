@@ -23,8 +23,9 @@ ss-rpi: sync
     python3 weather.py
     python3 tasks.py
     pkill -f "vite" || true
-    cd dashboard && screen -dmS vite npm run dev
-    sleep 3
+    cd dashboard-page && screen -dmS vite npm run dev
+    @echo "Wait for npm..."
+    sleep 10
     shot-scraper http://localhost:5173 -o image.png --width 480 --height 800
     pkill -f "vite" || true
     rm --force images-to-convert/*
