@@ -1,4 +1,6 @@
 sync:
+    source venv/bin/activate
+    pip install -r requirements.txt
     @echo "Starting syncing..."
     git pull
     @echo "Finished syncing..."
