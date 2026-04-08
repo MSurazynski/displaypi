@@ -7,7 +7,7 @@ sync:
 
 run: sync
     @echo "Running..."
-    display_image.py 
+    python3 display_image.py 
 
 convert: sync
     @echo "Running..."
