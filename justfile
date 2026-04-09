@@ -16,7 +16,7 @@ convert: sync
 ss: sync 
     venv/bin/python3 weather.py
     venv/bin/python3 tasks.py
-    venv/bin/shot-scraper  http://localhost:5173 -o image.png --width 480 --height 800
+    shot-scraper  http://localhost:5173 -o image.png --width 480 --height 800
     rm --force images-to-convert/*
     mv image.png images-to-convert/image.png
     python3 convert.py
