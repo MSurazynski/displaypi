@@ -16,6 +16,7 @@ convert: sync
 ss: sync 
     venv/bin/python3 weather.py
     venv/bin/python3 tasks.py
+    venv/bin/python3 date.py
     shot-scraper  http://localhost:5173 -o image.png --width 480 --height 800
     rm --force images-to-convert/*
     mv image.png images-to-convert/image.png
@@ -24,6 +25,7 @@ ss: sync
 ss-rpi: sync
     venv/bin/python3 weather.py
     venv/bin/python3 tasks.py
+    venv/bin/python3 date.py
     screen -S vite -X quit || true
     cd dashboard-page && screen -dmS vite npm run dev
     @echo "Wait for npm..."
