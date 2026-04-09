@@ -1,5 +1,8 @@
 # My stuff
 waveshare_epd
+images-converted
+images-to-convert
+data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
