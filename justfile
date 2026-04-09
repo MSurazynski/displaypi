@@ -33,3 +33,4 @@ ss-rpi: sync
     rm --force images-to-convert/*
     mv image.png images-to-convert/image.png
     venv/bin/python3 convert.py
+    python3 display_image.py 
