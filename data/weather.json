@@ -1,22 +1,22 @@
 [
   {
     "hour": 8,
-    "temp": 11,
-    "weather_code": 0
+    "temp": 13,
+    "weather_code": 3
+  },
+  {
+    "hour": 10,
+    "temp": 18,
+    "weather_code": 3
   },
   {
     "hour": 12,
-    "temp": 19,
+    "temp": 22,
     "weather_code": 3
   },
   {
     "hour": 14,
-    "temp": 21,
-    "weather_code": 3
-  },
-  {
-    "hour": 18,
-    "temp": 18,
+    "temp": 23,
     "weather_code": 3
   }
 ]
