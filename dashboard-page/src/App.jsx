@@ -1,5 +1,6 @@
 import weatherData from "../../data/weather.json";
 import taskData from "../../data/tasks.json";
+import dateData from "../../data/date.json";
 const icons = import.meta.glob("./assets/icons/*.svg", { eager: true });
 import { CircleCheck, Recycle, Ellipsis } from 'lucide-react'
 import StyledText from "./StyledText";
@@ -45,7 +46,7 @@ function App() {
 
         <div className="flex justify-center mb-8!">
           <StyledText size="large" font="bold">
-            Poniedziałek, 9 kwietnia
+            {dateData[0]}
           </StyledText>
         </div>
 
@@ -63,17 +64,19 @@ function App() {
           ))}
         </div>
 
-        <div className="flex flex-col justify-center gap-8 bg-primary p-4 rounded-3xl">
-          {taskData.tasks.map((entry, index) => (
-            <div key={index} className="flex items-center space-x-4">
-              <CircleCheck />
-              <StyledText>
-                {entry.title}
-              </StyledText>
-            </div>
-          ))}
+        <div className="flex flex-col justify-center p-4 bg-primary rounded-3xl">
+          <div className="flex flex-col gap-4">
+            {taskData.tasks.map((entry, index) => (
+              <div key={index} className="flex items-center space-x-4">
+                <CircleCheck />
+                <StyledText>
+                  {entry.title}
+                </StyledText>
+              </div>
+            ))}
+          </div>
           {taskData["more-than-three"] ?
-            (<div className="w-full flex justify-center">
+            (<div className="w-full flex justify-center mt-0!">
               <Ellipsis size={30} />
             </div>) :
             (<></>)}
@@ -90,8 +93,8 @@ function App() {
             </StyledText>
           </div>
 
-          <div className="flex flex-col justify-center gap-8 p-6 rounded-3xl bg-primary">
-          </div>
+          {/* <div className="flex flex-col justify-center gap-8 p-6 rounded-3xl bg-primary">
+          </div> */}
         </div>
       </div>
 
