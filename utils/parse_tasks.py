@@ -8,7 +8,11 @@ load_dotenv()
 TOKEN = os.getenv("TODOIST_TOKEN")
 TODAY = str(datetime.now().date())
 
-def get_all_tasks():
+def load_and_parse_tasks():
+    '''
+    Fetches all tasks from the Todoist API, handling pagination if necessary, and returns a list of tasks.
+    '''
+    
     all_tasks = []
     cursor = None
 
@@ -31,21 +35,3 @@ def get_all_tasks():
         cursor = data["next_cursor"]
 
     return all_tasks
-
-all_tasks = get_all_tasks()
-result = {}
-
-result['tasks'] = []
-result['more-than-three'] = False
-
-for task in all_tasks:
-    if task.get("due") and str(task["due"]["date"]) == TODAY:
-        result['tasks'].append({"title": task["content"]})
-
-if len(result['tasks']) > 3:
-    result['tasks'] = result['tasks'][:3]
-    result['more-than-three'] = True;
-
-os.makedirs("data", exist_ok=True)
-with open("data/tasks.json", "w") as f:
-    json.dump(result, f, indent=2)

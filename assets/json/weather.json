@@ -1,0 +1,22 @@
+[
+  {
+    "hour": 8,
+    "temp": 10,
+    "weather_code": 3
+  },
+  {
+    "hour": 10,
+    "temp": 12,
+    "weather_code": 3
+  },
+  {
+    "hour": 12,
+    "temp": 16,
+    "weather_code": 3
+  },
+  {
+    "hour": 14,
+    "temp": 20,
+    "weather_code": 3
+  }
+]
