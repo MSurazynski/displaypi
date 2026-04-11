@@ -15,6 +15,9 @@ display-evening-today:
     python3 main.py --daytime evening --day today
     @echo "Finished!"
 
+load-data:
+    python3 -m utils.data.py
+
 write-requirements:
     source venv/bin/activate
     pip freeze > requirements.txt
