@@ -9,6 +9,7 @@ from utils.data import load_tasks, load_date, load_weather, load_nasa_image
 import argparse
 
 parser = argparse.ArgumentParser()
+parser.add_argument("--type", type=str, required=False)
 parser.add_argument("--daytime", type=str, required=False)
 parser.add_argument("--day", type=str, required=False)
 args = parser.parse_args()
@@ -64,9 +65,18 @@ def display_nasa_photo():
 
 # Generate morning dashboard page screenshot
 if __name__ == "__main__":
-    if args.daytime=="morning" and args.day=="today":
-        display_dashboard(morning=True, today=True)
-        print("Morning dashboard displayed successfully.")
-    elif args.daytime=="evening" and args.day=="today":
-        display_dashboard(morning=False, today=True)
+    
+    if args.type == "dashboard":
+        if args.daytime == "morning" and args.day == "today":
+            display_dashboard(morning=True, today=True)
+            print("Morning dashboard displayed successfully.")
+        elif args.daytime == "evening" and args.day == "today":
+            display_dashboard(morning=False, today=True)
         print("Evening dashboard displayed successfully.")
+
+    elif args.type == "nasa":
+        display_nasa_photo()
+        print("NASA photo displayed successfully.")
+
+    else:
+        print("Invalid arguments provided.")
