@@ -10,6 +10,7 @@ def convert_image(image_to_convert_path: Path, output_directory_path: Path, use_
     - Crops to a vertical 3:5 aspect ratio from the center
     - Resizes to 480x800 pixels
     - Quantizes to the 6-color palette supported by the display
+    
     @param image_to_convert_path: Path to the input image (can be any common format).
     @param output_directory_path: Directory where the converted image will be saved.
     @param use_smart_rotation: Whether to use smart rotation based on visual weight.

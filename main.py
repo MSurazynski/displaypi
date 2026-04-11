@@ -5,6 +5,7 @@ from utils.convert_image import convert_image
 import config
 from utils.data import load_tasks, load_date, load_weather, load_nasa_image
 import argparse
+from random import choice
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--type", type=str, required=False)
@@ -15,6 +16,13 @@ args = parser.parse_args()
 load_dotenv()
 MACHINE = os.getenv("MACHINE")
 
+
+def display_random_private_image():
+    image_files = list(config.PRIVATE_IMAGES_DIRECTORY.glob("*.bmp"))
+    if image_files and MACHINE == "RPI":
+        random_image = choice(image_files)
+        from utils.display_image import display_image
+        display_image(image_path=random_image)
 
 def display_dashboard(morning=True, today=True):
     '''

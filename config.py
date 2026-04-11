@@ -14,3 +14,4 @@ NASA_CONVERTED_IMAGE_DIRECTORY_PATH = Path("assets/images/converted/nasa")
 NASA_NOT_CONVERTED_IMAGE_NAME = Path(f"nasa-image-{datetime.now().date().isoformat()}.png")
 NASA_CONVERTED_IMAGE_NAME = Path(f"nasa-image-{datetime.now().date().isoformat()}.bmp")
 
+PRIVATE_IMAGES_DIRECTORY = Path("assets/images/converted/private-images")
