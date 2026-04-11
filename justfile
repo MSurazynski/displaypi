@@ -8,6 +8,12 @@ sync:
 display-morning-today:
     @echo "Running..."
     python3 main.py --daytime morning --day today
+    @echo "Finished!"
+
+display-evening-today:
+    @echo "Running..."
+    python3 main.py --daytime evening --day today
+    @echo "Finished!"
 
 write-requirements:
     source venv/bin/activate
