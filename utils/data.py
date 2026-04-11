@@ -3,6 +3,7 @@ import os
 import requests
 from datetime import datetime, timedelta
 import json
+from config import TEMP_IMAGE_DIRECTORY_PATH, NASA_NOT_CONVERTED_IMAGE_NAME
 from utils.parse_tasks import load_and_parse_tasks
 
 
@@ -93,9 +94,34 @@ def load_weather(today=True, morning=True):
         json.dump(result, f, indent=2)
     print('Weather data loaded successfully.')
 
+def get_nasa_image():
+    '''
+    Fetches the NASA Astronomy Picture of the Day (APOD) and saves the image URL in a JSON file.
+    '''
+    
+    url = "https://api.nasa.gov/planetary/apod"
+    params = {
+        "api_key": "DEMO_KEY"  # Replace with your NASA API key if you have one
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    result = {
+        "image_url": data.get("url", "")
+    }
+    
+    if result["image_url"]:
+        img_response = requests.get(result["image_url"])
+        if img_response.status_code == 200:
+            with open(TEMP_IMAGE_DIRECTORY_PATH / NASA_NOT_CONVERTED_IMAGE_NAME, "wb") as img_file:
+                img_file.write(img_response.content)
+            print('NASA image data loaded successfully.')
+
 
 if __name__ == "__main__":
     load_tasks()
     load_date()
     load_weather()
+    get_nasa_image()
 
