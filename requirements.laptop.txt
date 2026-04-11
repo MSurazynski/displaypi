@@ -1,0 +1,16 @@
+certifi==2026.2.25
+charset-normalizer==3.4.7
+click==8.3.2
+click-default-group==1.2.4
+greenlet==3.4.0
+idna==3.11
+numpy==2.4.4
+pillow==12.2.0
+playwright==1.58.0
+pyee==13.0.1
+python-dotenv==1.2.2
+PyYAML==6.0.3
+requests==2.33.1
+shot-scraper==1.9.1
+typing_extensions==4.15.0
+urllib3==2.6.3
