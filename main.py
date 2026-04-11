@@ -27,8 +27,8 @@ def display_dashboard(morning=True, today=True):
     
     #1. Load data for the dashboard (tasks, date, weather)
     load_tasks()
-    load_date(today=True)
-    load_weather(today=True, morning=True) 
+    load_date(today=today)
+    load_weather(today=today, morning=morning) 
 
     # 2. Start Vite server and take screenshot of the dashboard page
     dashboard_export.main()
@@ -46,5 +46,7 @@ def display_dashboard(morning=True, today=True):
 if __name__ == "__main__":
     if args.daytime=="morning" and args.day=="today":
         display_dashboard(morning=True, today=True)
+        print("Morning dashboard displayed successfully.")
     elif args.daytime=="evening" and args.day=="today":
         display_dashboard(morning=False, today=True)
+        print("Evening dashboard displayed successfully.")
