@@ -1,5 +1,3 @@
-from zipfile import Path
-
 from dotenv import load_dotenv
 import os
 import utils.dashboard_export as dashboard_export
@@ -37,7 +35,10 @@ def display_dashboard(morning=True, today=True):
     dashboard_export.main()
 
     # 3. Convert the screenshot to the required format for the e-paper display
-    convert_image(image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME, output_directory_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH)
+    convert_image(
+        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME, 
+        output_directory_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH
+    )
 
     # 4. Display the converted image (only if running on the Raspberry Pi)
     if MACHINE == "RPI":
@@ -56,7 +57,11 @@ def display_nasa_photo():
     load_nasa_image()
 
     # 2. Convert the NASA photo to the required format for the e-paper display
-    convert_image(image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.NASA_NOT_CONVERTED_IMAGE_NAME, output_directory_path=config.NASA_CONVERTED_IMAGE_DIRECTORY_PATH)  
+    convert_image(
+        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.NASA_NOT_CONVERTED_IMAGE_NAME, 
+        output_directory_path=config.NASA_CONVERTED_IMAGE_DIRECTORY_PATH,
+        use_smart_rotation=True
+    )  
 
     # 2. Display the NASA photo (only if running on the Raspberry Pi)
     if MACHINE == "RPI":
