@@ -5,7 +5,11 @@ sync:
     git pull
     @echo "Finished syncing..."
 
-run: sync
+display-morning-today:
+    @echo "Running..."
+    python3 main.py --daytime morning --day today
+
+run:
     @echo "Running..."
     python3 display_image.py 
 
