@@ -1,6 +1,6 @@
-import weatherData from "../../data/weather.json";
-import taskData from "../../data/tasks.json";
-import dateData from "../../data/date.json";
+import weatherData from "../../assets/json/weather.json";
+import taskData from "../../assets/json/tasks.json";
+import dateData from "../../assets/json/date.json";
 const icons = import.meta.glob("./assets/icons/*.svg", { eager: true });
 import { CircleCheck, Recycle, Ellipsis } from 'lucide-react'
 import StyledText from "./StyledText";
@@ -82,7 +82,7 @@ function App() {
             (<></>)}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col justify-center items-center gap-4 p-4 rounded-3xl bg-primary">
             <StyledText>
               Papier
