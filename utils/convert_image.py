@@ -1,9 +1,8 @@
 from PIL import Image
 from pathlib import Path
-from config import FALLBACK_IMAGE_DIRECTORY_PATH
 
 
-def convert_image(image_to_convert_path: Path, output_directory_path: Path = FALLBACK_IMAGE_DIRECTORY_PATH):
+def convert_image(image_to_convert_path: Path, output_directory_path: Path):
     '''
     Converts an input image to the required format for the e-paper display:
     - Rotates if in portrait orientation
@@ -11,8 +10,12 @@ def convert_image(image_to_convert_path: Path, output_directory_path: Path = FAL
     - Resizes to 800x480 pixels
     - Quantizes to the 6-color palette supported by the display
     @param image_to_convert_path: Path to the input image (can be any common format).
-    @param output_directory_path: Directory where the converted image will be saved (default: "assets/images/converted/default"). 
+    @param output_directory_path: Directory where the converted image will be saved.
     '''
+
+    if not output_directory_path.exists():
+        print(f"Output directory not provided, exiting.")
+        return
 
     img = Image.open(image_to_convert_path)
     file_name = image_to_convert_path.stem

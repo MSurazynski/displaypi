@@ -94,7 +94,7 @@ def load_weather(today=True, morning=True):
         json.dump(result, f, indent=2)
     print('Weather data loaded successfully.')
 
-def get_nasa_image():
+def load_nasa_image():
     '''
     Fetches the NASA Astronomy Picture of the Day (APOD) and saves the image URL in a JSON file.
     '''
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     load_tasks()
     load_date()
     load_weather()
-    get_nasa_image()
+    load_nasa_image()
 
