@@ -1,4 +1,3 @@
 #!/bin/bash
-just sync
-just ss-rpi
-just run
+/usr/bin/just sync
+/usr/bin/just display-morning-today
