@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import utils.dashboard_export as dashboard_export
 from utils.convert_image import convert_image
-from config import DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH, DASHBOARD_IMAGE_NAME, DASHBOARD_CONVERTED_DIRECTORY_PATH
+from config import DASHBOARD_CONVERTED_IMAGE_NAME, DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH, DASHBOARD_NOT_CONVERTED_IMAGE_NAME, DASHBOARD_CONVERTED_DIRECTORY_PATH
 from utils.data import load_tasks, load_date, load_weather
 import argparse
 
@@ -34,12 +34,12 @@ def display_today_morning_dashboard():
     dashboard_export.main()
 
     # 3. Convert the screenshot to the required format for the e-paper display
-    convert_image(image_to_convert_path=DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH / DASHBOARD_IMAGE_NAME, output_directory_path=DASHBOARD_CONVERTED_DIRECTORY_PATH)
+    convert_image(image_to_convert_path=DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH / DASHBOARD_NOT_CONVERTED_IMAGE_NAME, output_directory_path=DASHBOARD_CONVERTED_DIRECTORY_PATH)
 
     # 4. Display the converted image (only if running on the Raspberry Pi)
     if MACHINE == "RPI":
         from utils.display_image import display_image
-        display_image(image_path=DASHBOARD_CONVERTED_DIRECTORY_PATH / DASHBOARD_IMAGE_NAME)
+        display_image(image_path=DASHBOARD_CONVERTED_DIRECTORY_PATH / DASHBOARD_CONVERTED_IMAGE_NAME)
 
 
 # Generate morning dashboard page screenshot

@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess
 import time
-from config import DASHBOARD_PAGE_PROJECT_DIR, DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH, DASHBOARD_IMAGE_NAME
+from config import DASHBOARD_PAGE_PROJECT_DIR, DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH, DASHBOARD_NOT_CONVERTED_IMAGE_NAME
 
 def start_vite():
     '''
@@ -38,7 +38,7 @@ def take_screenshot():
             "venv/bin/shot-scraper",
             "http://localhost:5173",
             "-o",
-            str(f"{DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH}/{DASHBOARD_IMAGE_NAME}"),
+            str(f"{DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH}/{DASHBOARD_NOT_CONVERTED_IMAGE_NAME}"),
             "--width",
             "480",
             "--height",
