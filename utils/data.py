@@ -3,7 +3,8 @@ import os
 import requests
 from datetime import datetime, timedelta
 import json
-from config import TEMP_IMAGE_DIRECTORY_PATH, NASA_NOT_CONVERTED_IMAGE_NAME
+import time
+import config
 from utils.parse_tasks import load_and_parse_tasks
 
 
@@ -96,27 +97,57 @@ def load_weather(today=True, morning=True):
 
 def load_nasa_image():
     '''
-    Fetches the NASA Astronomy Picture of the Day (APOD) and saves the image URL in a JSON file.
+    Fetches NASA APOD and keeps retrying until an image is downloaded successfully.
+    If the current day APOD is not an image, it automatically tries previous days.
     '''
     
     url = "https://api.nasa.gov/planetary/apod"
-    params = {
-        "api_key": "DEMO_KEY"  # Replace with your NASA API key if you have one
-    }
+    retry_delay_seconds = 5
+    request_timeout_seconds = 10
+    date_to_try = datetime.now().date()
 
-    response = requests.get(url, params=params)
-    data = response.json()
+    dated_image_path = config.TEMP_IMAGE_DIRECTORY_PATH / config.NASA_NOT_CONVERTED_IMAGE_NAME
 
-    result = {
-        "image_url": data.get("url", "")
-    }
-    
-    if result["image_url"]:
-        img_response = requests.get(result["image_url"])
-        if img_response.status_code == 200:
-            with open(TEMP_IMAGE_DIRECTORY_PATH / NASA_NOT_CONVERTED_IMAGE_NAME, "wb") as img_file:
-                img_file.write(img_response.content)
-            print('NASA image data loaded successfully.')
+    config.TEMP_IMAGE_DIRECTORY_PATH.mkdir(parents=True, exist_ok=True)
+
+    if dated_image_path.exists():
+        print(f"NASA image already exists for today: {dated_image_path}. Skipping fetch.")
+        return dated_image_path
+
+    while True:
+        params = {
+            "api_key": "DEMO_KEY",  # Replace with your NASA API key if you have one
+            "date": date_to_try.isoformat(),
+        }
+
+        try:
+            response = requests.get(url, params=params, timeout=request_timeout_seconds)
+            response.raise_for_status()
+            data = response.json()
+        except (requests.RequestException, ValueError) as error:
+            print(f"NASA APOD request failed: {error}. Retrying in {retry_delay_seconds}s...")
+            time.sleep(retry_delay_seconds)
+            continue
+
+        image_url = data.get("url", "")
+        if data.get("media_type") != "image" or not image_url:
+            print(f"NASA APOD for {date_to_try} is not an image. Trying previous day...")
+            date_to_try = date_to_try - timedelta(days=1)
+            continue
+
+        try:
+            img_response = requests.get(image_url, timeout=request_timeout_seconds)
+            img_response.raise_for_status()
+        except requests.RequestException as error:
+            print(f"Failed to download NASA image: {error}. Retrying in {retry_delay_seconds}s...")
+            time.sleep(retry_delay_seconds)
+            continue
+
+        with open(dated_image_path, "wb") as img_file:
+            img_file.write(img_response.content)
+
+        print(f"NASA image data loaded successfully from {date_to_try} to {dated_image_path}.")
+        return dated_image_path
 
 
 if __name__ == "__main__":
