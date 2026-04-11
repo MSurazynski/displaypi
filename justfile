@@ -21,6 +21,11 @@ display-nasa:
     venv/bin/python3 main.py --type nasa
     @echo "Finished!"
 
+display-random-private-image:
+    @echo "Running..."
+    venv/bin/python3 main.py --type random-image
+    @echo "Finished!"
+
 load-data:
     venv/bin/python3 -m utils.data
 

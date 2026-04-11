@@ -91,5 +91,9 @@ if __name__ == "__main__":
         display_nasa_photo()
         print("NASA photo displayed successfully.")
 
+    elif args.type == "random-image":
+        display_random_private_image()
+        print("Displaying random private image.")
+
     else:
         print("Invalid arguments provided.")
