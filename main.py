@@ -22,6 +22,7 @@ def display_random_private_image():
     if image_files and MACHINE == "RPI":
         random_image = choice(image_files)
         from utils.display_image import display_image
+        print(f"Displaying {random_image}")
         display_image(image_path=random_image)
 
 def display_dashboard(morning=True, today=True):
