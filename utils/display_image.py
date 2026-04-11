@@ -12,7 +12,7 @@ epd = epd7in3e.EPD()
 def display_image(image_path: Path):
     '''
     Displays the converted image on the e-paper display.
-    @param image_path: Path to the converted image (must be 800x480 and in BMP format).
+    @param image_path: Path to the converted image (expected 480x800 or 800x480 in BMP format).
     '''
     if not image_path.exists():
         logging.error(f"Image not found: {image_path}")
@@ -24,8 +24,14 @@ def display_image(image_path: Path):
         epd.Clear()
 
         logging.info("Loading image...")
-        img = Image.open(image_path)  # Must be 800x480
-        img = img.resize((epd.width, epd.height))  # Safety resize
+        img = Image.open(image_path)
+
+        # Standardize to panel orientation explicitly to avoid implicit driver rotation surprises.
+        if img.size == (epd.height, epd.width):
+            img = img.rotate(270, expand=True)
+        elif img.size != (epd.width, epd.height):
+            logging.warning("Unexpected image dimensions %s, resizing to panel size %sx%s", img.size, epd.width, epd.height)
+            img = img.resize((epd.width, epd.height))
 
         logging.info("Displaying image...")
         epd.display(epd.getbuffer(img))
