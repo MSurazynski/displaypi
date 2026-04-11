@@ -48,7 +48,7 @@ def convert_image(image_to_convert_path: Path, output_directory_path: Path, use_
     # Now resize to exact display resolution
     img = img.resize((output_width, output_height))
 
-    img = img.transpose(Image.Transpose.ROTATE_270) # Rotate 270 degrees clockwise to match display orientation
+    img = img.transpose(Image.Transpose.ROTATE_90) # Rotate 270 degrees clockwise to match display orientation
 
     # Convert to the 6-color e-paper palette
     palette_img = Image.new("P", (1, 1))
