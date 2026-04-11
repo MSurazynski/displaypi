@@ -6,3 +6,7 @@ DASHBOARD_NOT_CONVERTED_DIRECTORY_PATH = Path("assets/images/temp")
 DASHBOARD_CONVERTED_DIRECTORY_PATH = Path("assets/images/converted/dashboard")
 DASHBOARD_PAGE_PROJECT_DIR = Path("dashboard-page")
 FALLBACK_IMAGE_DIRECTORY_PATH = Path("assets/images/fallback")
+
+TEMP_IMAGE_DIRECTORY_PATH = Path("assets/images/temp")
+NASA_NOT_CONVERTED_IMAGE_NAME = Path("nasa_image.png")
+NASA_CONVERTED_IMAGE_NAME = Path("nasa_image.bmp")
