@@ -1,6 +1,7 @@
 # My stuff
 waveshare_epd/
 assets/
+venv.backup/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
