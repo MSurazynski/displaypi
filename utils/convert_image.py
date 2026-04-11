@@ -63,7 +63,4 @@ def convert_image(image_to_convert_path: Path, output_directory_path: Path, use_
 
     img = img.quantize(palette=palette_img)
 
-    if img.width != output_width or img.height != output_height:
-        raise ValueError(f"Final image has incorrect dimensions: {img.size}, expected {(output_width, output_height)}")
-
     img.save(output_directory_path / f"{file_name}.bmp")
