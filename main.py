@@ -15,7 +15,7 @@ load_dotenv()
 MACHINE = os.getenv("MACHINE")
 
 
-def display_today_morning_dashboard():
+def display_dashboard(morning=True, today=True):
     '''
     Main function to generate and display the morning dashboard on the e-paper display. 
     It performs the following steps:
@@ -45,4 +45,6 @@ def display_today_morning_dashboard():
 # Generate morning dashboard page screenshot
 if __name__ == "__main__":
     if args.daytime=="morning" and args.day=="today":
-        display_today_morning_dashboard()
+        display_dashboard(morning=True, today=True)
+    elif args.daytime=="evening" and args.day=="today":
+        display_dashboard(morning=False, today=True)
