@@ -46,3 +46,6 @@ export-all-laptop:
 export-all-pi:
     just requirements-pi
     just apt-pi
+    git add requirements.pi.txt apt-packages.pi.txt
+    git commit -m "Update Raspberry Pi dependency snapshots" || true
+    git push
