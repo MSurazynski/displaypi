@@ -77,7 +77,7 @@ if __name__ == "__main__":
             print("Morning dashboard displayed successfully.")
         elif args.daytime == "evening" and args.day == "today":
             display_dashboard(morning=False, today=True)
-        print("Evening dashboard displayed successfully.")
+            print("Evening dashboard displayed successfully.")
 
     elif args.type == "nasa":
         display_nasa_photo()
