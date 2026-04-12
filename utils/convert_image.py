@@ -23,11 +23,12 @@ def convert_image(image_to_convert_path: Path, output_directory_path: Path, use_
     output_width = 480
     output_height = 800
 
+    
     # Ensure the image is vertical (portrait).
-    if use_smart_rotation:
+    if use_smart_rotation and img.width > img.height:
         from utils.smart_image_rotate import auto_rotate_to_vertical
         img = auto_rotate_to_vertical(img)
-    if img.width > img.height:
+    elif img.width > img.height:
         img = img.rotate(90, expand=True)
 
     # Crop to vertical 3:5 (width:height) from center.
