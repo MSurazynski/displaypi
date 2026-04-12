@@ -6,6 +6,8 @@ import config
 from utils.data import load_tasks, load_date, load_weather, load_nasa_image
 import argparse
 from random import choice
+import datetime
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--type", type=str, required=False)
@@ -80,6 +82,8 @@ def display_nasa_photo():
 # Generate morning dashboard page screenshot
 if __name__ == "__main__":
     
+    print(f"Current time: {datetime.datetime.now()}")
+
     if args.type == "dashboard":
         if args.daytime == "morning" and args.day == "today":
             display_dashboard(morning=True, today=True)
