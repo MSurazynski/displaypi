@@ -7,24 +7,24 @@ sync:
     @echo "Finished syncing..."
 
 display-morning-today:
-    @echo "Running..."
+    @echo "Starting display-morning-today..."
     venv/bin/python3 main.py --type dashboard --daytime morning --day today
-    @echo "Finished!"
+    @echo "Finished display-morning-today..."
 
 display-evening-today:
-    @echo "Running..."
+    @echo "Starting display-evening-today..."
     venv/bin/python3 main.py --type dashboard --daytime evening --day today
-    @echo "Finished!"
+    @echo "Finished display-evening-today..."
 
 display-nasa:
-    @echo "Running..."
+    @echo "Starting display-nasa..."
     venv/bin/python3 main.py --type nasa
-    @echo "Finished!"
+    @echo "Finished display-nasa..."
 
 display-random-private-image:
-    @echo "Running..."
+    @echo "Starting display-random-private-image..."
     venv/bin/python3 main.py --type random-image
-    @echo "Finished!"
+    @echo "Finished display-private-random-image..."
 
 load-data:
     venv/bin/python3 -m utils.data
