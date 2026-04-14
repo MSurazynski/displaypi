@@ -46,6 +46,7 @@
   --color-background-med: oklch(0.98 0 0);
   --color-background-high: oklch(0.96 0 0);
   --color-background-sky: oklch(0.8331 0.0561 209.08);
+  --color-backrgound-paper: oklch(0.937 0.0328 91.67);
 
   /* Text */
   --color-text: oklch(0 0 0);
