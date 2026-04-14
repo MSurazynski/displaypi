@@ -30,10 +30,6 @@ def load_tasks():
         if task.get("due") and str(task["due"]["date"]) == today:
             result['tasks'].append({"title": task["content"]})
 
-    if len(result['tasks']) > 3:
-        result['tasks'] = result['tasks'][:3]
-        result['more-than-three'] = True;
-
     os.makedirs("assets/json", exist_ok=True)
     with open("assets/json/tasks.json", "w") as f:
         json.dump(result, f, indent=2)
