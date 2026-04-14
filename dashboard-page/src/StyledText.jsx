@@ -1,21 +1,20 @@
+/**
+ * Component with styled text.
+ * @param {string} size small | medium | large | veryLarge
+ */
 export default function StyledText({ children, size = "medium", align = "center", font = "semiBold" }) {
     const textSize = {
         small: "text-sm",
         medium: "text-md",
-        large: "text-xl"
+        large: "text-xl",
+        veryLarge: "text-3xl"
     }[size]
 
-    let textAlign = "text-center";
-    switch (align) {
-        case "left":
-            textAlign = "text-left";
-            break;
-        case "right":
-            textAlign = "text-right";
-            break;
-        default:
-            textAlign = "text-center";
-    }
+    const textAlign = {
+        left: "text-left",
+        center: "text-center",
+        right: "text-right"
+    }[align]
 
     const fontWeight = {
         light: "font-light",
