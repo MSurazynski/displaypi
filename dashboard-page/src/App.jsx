@@ -50,13 +50,13 @@ function App() {
           </StyledText>
         </div>
 
-        <div className="flex justify-center gap-4 p-4 rounded-3xl">
+        <div className="flex justify-center p-4 rounded-3xl">
           {weatherData.map((entry, index) => (
             <div key={index} className="flex flex-col items-center">
               <StyledText>
                 {entry.hour}:00
               </StyledText>
-              <img src={getIcon(entry.weather_code)} className="w-20 h-20" />
+              <img src={getIcon(entry.weather_code)} className="w-30 h-30" />
               <StyledText size="large">
                 {entry.temp}°C
               </StyledText>
