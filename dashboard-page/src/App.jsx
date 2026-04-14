@@ -41,16 +41,16 @@ const WMO_TO_ICON = {
 function App() {
 
   return (
-    <div className="absolute w-full h-full bg-background-sky">
-      <div className="my-16 mx-8 flex flex-col  space-y-4">
+    <div className="absolute w-full h-full bg-backrgound-paper">
+      <div className="my-16 mx-8 flex flex-col space-y-4">
 
         <div className="flex justify-center mb-8!">
-          <StyledText size="large" font="bold">
+          <StyledText size="veryLarge" font="bold">
             {dateData[0]}
           </StyledText>
         </div>
 
-        <div className="flex justify-center gap-4 bg-primary p-4 rounded-3xl">
+        <div className="flex justify-center gap-4 p-4 rounded-3xl">
           {weatherData.map((entry, index) => (
             <div key={index} className="flex flex-col items-center">
               <StyledText>
@@ -64,26 +64,33 @@ function App() {
           ))}
         </div>
 
-        <div className="flex flex-col justify-center p-4 bg-primary rounded-3xl">
-          <div className="flex flex-col gap-4">
-            {taskData.tasks.map((entry, index) => (
-              <div key={index} className="flex items-center space-x-4">
-                <CircleCheck />
+        <div className="flex flex-col justify-center p-4 rounded-3xl">
+          <div className="flex flex-col gap-2">
+            <StyledText size="large" align="left">
+                Zadania
+            </StyledText>
+            <hr className="border-t border-text"/>
+            {taskData.tasks.slice(0, 3).map((entry, index) => (
+              <div key={index} className="flex-col items-start justify-items-start space-x-4">
                 <StyledText>
-                  {entry.title}
+                  {(index+1) + ". " + entry.title}
                 </StyledText>
+                
+                <hr className="w-full border-t text-text mt-2"/>
               </div>
             ))}
           </div>
           {taskData["more-than-three"] ?
-            (<div className="w-full flex justify-center mt-0!">
-              <Ellipsis size={30} />
+            (<div className="w-full flex justify-start mt-2">
+                <StyledText>
+                    {"Pozostałych zadań: " + (taskData.tasks.length - 3)}
+                </StyledText>
             </div>) :
             (<></>)}
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <div className="flex flex-col justify-center items-center gap-4 p-4 rounded-3xl bg-primary">
+          <div className="flex flex-col justify-center items-center gap-4 p-4 rounded-3x">
             <StyledText>
               Papier
             </StyledText>
