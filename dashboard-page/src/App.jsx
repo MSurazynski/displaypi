@@ -85,7 +85,7 @@ function App() {
                             </div>
                         ))}
                     </div>
-                    {taskData["more-than-three"] ?
+                    {taskData.tasks.length > 3 ?
                         (<div className="w-full flex justify-start mt-2">
                                 <StyledText>
                                         {"Pozostałych zadań: " + (taskData.tasks.length - 3)}
