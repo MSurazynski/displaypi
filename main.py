@@ -91,7 +91,12 @@ if __name__ == "__main__":
         elif args.daytime == "evening" and args.day == "today":
             display_dashboard(morning=False, today=True)
             print("Evening dashboard displayed successfully.")
-
+        elif args.daytime == "morning" and args.day == "tomorrow":
+            display_dashboard(morning=True, today=False)
+            print("Morning dashboard displayed successfully.")
+        elif args.daytime == "evening" and args.day == "tomorrow":
+            display_dashboard(morning=False, today=False)
+            print("Evening dashboard displayed successfully.")
     elif args.type == "nasa":
         display_nasa_photo()
         print("NASA photo displayed successfully.")
