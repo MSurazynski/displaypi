@@ -16,6 +16,11 @@ display-evening-today:
     venv/bin/python3 main.py --type dashboard --daytime evening --day today
     @echo "Finished display-evening-today..."
 
+display-morning-tomorrow:
+    @echo "Starting display-evening-tomorrow..."
+    venv/bin/python3 main.py --type dashboard --daytime morning --day tomorrow
+    @echo "Finished display-evening-tomorrow..."
+
 display-nasa:
     @echo "Starting display-nasa..."
     venv/bin/python3 main.py --type nasa
