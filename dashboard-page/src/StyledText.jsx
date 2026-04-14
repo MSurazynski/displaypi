@@ -7,7 +7,7 @@ export default function StyledText({ children, size = "medium", align = "center"
         small: "text-sm",
         medium: "text-md",
         large: "text-xl",
-        veryLarge: "text-3xl"
+        veryLarge: "text-2xl"
     }[size]
 
     const textAlign = {
