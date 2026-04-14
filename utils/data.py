@@ -15,7 +15,6 @@ TODOIST_TOKEN = os.getenv("TODOIST_TOKEN")
 def load_tasks():
     '''
     Loads tasks from the Todoist API, filters them for today's tasks, and saves the result in a JSON file. 
-    If there are more than three tasks, it limits the output to three and indicates that there are more.
     '''
 
     all_tasks = load_and_parse_tasks()
