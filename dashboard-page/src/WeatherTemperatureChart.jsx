@@ -16,14 +16,14 @@ export default function WeatherTemperatureChart({ data }) {
     );
   }
 
-  const width = 320;
-  const height = 140;
+  const width = 400;
+  const height = 120;
 
   const padding = {
     top: 16,
-    right: 30,
+    right: 45,
     bottom: 28,
-    left: 30,
+    left: 35,
   };
 
   const innerWidth = width - padding.left - padding.right;
@@ -118,7 +118,7 @@ export default function WeatherTemperatureChart({ data }) {
   const rainLinePath = hasRain ? buildStepPath(rainPoints) : "";
 
   return (
-    <div className="w-full px-4">
+    <div className="max-w px-4">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="h-auto w-full"
@@ -139,7 +139,7 @@ export default function WeatherTemperatureChart({ data }) {
           x={padding.left - 6}
           y={padding.top + 4}
           textAnchor="end"
-          className="fill-neutral-800 text-sm font-medium"
+          className="fill-neutral-800 text-xs font-medium"
         >
           {maxTemp}°
         </text>
@@ -150,7 +150,7 @@ export default function WeatherTemperatureChart({ data }) {
           y={padding.top + innerHeight}
           textAnchor="end"
           dominantBaseline="ideographic"
-          className="fill-neutral-800 text-sm font-medium"
+          className="fill-neutral-800 text-xs font-medium"
         >
           {minTemp}°
         </text>
@@ -161,7 +161,7 @@ export default function WeatherTemperatureChart({ data }) {
             x={width - padding.right + 6}
             y={padding.top + 4}
             textAnchor="start"
-            className="fill-neutral-800 text-sm font-medium"
+            className="fill-neutral-800 text-xs font-medium"
           >
             {maxRain} mm
           </text>
@@ -174,7 +174,7 @@ export default function WeatherTemperatureChart({ data }) {
             y={padding.top + innerHeight}
             textAnchor="start"
             dominantBaseline="ideographic"
-            className="fill-neutral-800 text-sm font-medium"
+            className="fill-neutral-800 text-xs font-medium"
           >
             {minRain} mm
           </text>
