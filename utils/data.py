@@ -63,28 +63,61 @@ def load_weather(today=True, morning=True):
     url = "https://api.open-meteo.com/v1/forecast"
 
     target_date = datetime.now().date() if today else datetime.now().date() + timedelta(days=1)
-    target_hours = [8, 10, 12, 14] if morning else [16, 18, 20, 22]
+    target_hours = [8, 9, 10, 11, 12, 13, 14] if morning else [16, 17, 18, 19, 20, 21, 22]
 
     params = {
         "latitude": "51.439270092728904",
         "longitude": "5.50632763399379",
-        "hourly": ["temperature_2m", "weather_code"],
+        "hourly": ["temperature_2m", "weather_code", "precipitation", "precipitation_probability"],
+        "daily": ["weather_code", "temperature_2m_max", "temperature_2m_min"],
         "forecast_days": 1 if today else 2
     }
 
     response = requests.get(url, params=params)
     data = response.json()
-
-    result = []
-
-    for time, temp, weather_code in zip(data["hourly"]["time"], data["hourly"]["temperature_2m"], data["hourly"]["weather_code"]):
+    
+    hourly_result = []
+    
+    for time, temp, weather_code, precipitation, precipitation_probability in zip(
+        data["hourly"]["time"], 
+        data["hourly"]["temperature_2m"], 
+        data["hourly"]["weather_code"],
+        data["hourly"]["precipitation"],
+        data["hourly"]["precipitation_probability"]
+    ):
         timestamp = datetime.fromisoformat(time)
         if timestamp.date() == target_date and timestamp.hour in target_hours:
-            result.append({
+            hourly_result.append({
                 "hour": timestamp.hour,
                 "temp": round(temp),
-                "weather_code": weather_code
+                "weather_code": weather_code,
+                "rain_mm": precipitation,
+                "rain_probability": precipitation_probability 
             })
+    
+    daily_result = None
+
+    daily_result = None
+    for date_str, weather_code, temp_max, temp_min in zip(
+        data["daily"]["time"],
+        data["daily"]["weather_code"],
+        data["daily"]["temperature_2m_max"],
+        data["daily"]["temperature_2m_min"],
+    ):
+        date_obj = datetime.fromisoformat(date_str).date()
+        if date_obj == target_date:
+            daily_result = {
+                "date": date_str,
+                "weather_code": weather_code,
+                "temp_max": round(temp_max),
+                "temp_min": round(temp_min),
+            }
+            break
+
+    result = {
+        "hours": hourly_result,
+        "day": daily_result,
+    }
 
     os.makedirs("assets/json", exist_ok=True)
     with open("assets/json/weather.json", "w") as f:
