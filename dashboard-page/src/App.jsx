@@ -111,8 +111,8 @@ function App() {
                 
 
                 <div className="flex, justify-start items-start px-4">
-                    <StyledText align="left">
-                        Śmieci:
+                    <StyledText align="left" size="large">
+                        Śmieci
                     </StyledText>
                     {Object.entries(getNearestTrashDays()).map(([type, date]) => (
                         <div key={type}>
