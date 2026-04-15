@@ -1,8 +1,8 @@
 import weatherData from "../../assets/json/weather.json";
 import taskData from "../../assets/json/tasks.json";
 import dateData from "../../assets/json/date.json";
+import trashData from "../../assets/json/trash.json";
 const icons = import.meta.glob("./assets/icons/*.svg", { eager: true });
-import { CircleCheck, Recycle, Ellipsis } from 'lucide-react'
 import StyledText from "./StyledText";
 import WeatherTemperatureChart from "./WeatherTemperatureChart";
 
@@ -10,6 +10,36 @@ function getIcon(code) {
     const name = WMO_TO_ICON[code];
     const key = `./assets/icons/${name}.svg`;
     return icons[key]?.default;
+}
+
+function mapTrashLabel(label) {
+    const newLabel = {
+        garden: "Śmieci ogrodowe",
+        mixed: "Zmieszanie",
+        paper: "Papiery"
+    }[label]
+
+    return newLabel
+}
+
+function getNearestUpcomingDay(data) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const nearestDate = data
+        .map(d => new Date(d))
+        .filter(d => d >= today)
+        .sort((a, b) => a - b)[0];
+
+    return nearestDate;
+}
+
+function getNearestTrashDays() {
+    return {
+        paper: getNearestUpcomingDay(trashData.paper),
+        mixed: getNearestUpcomingDay(trashData.mixed),
+        garden: getNearestUpcomingDay(trashData.garden)
+    };
 }
 
 // TODO REMAP
@@ -39,6 +69,8 @@ const WMO_TO_ICON = {
 };
 
 function App() {
+    
+    console.log(getNearestTrashDays());
 
     return (
         <div className="absolute w-full h-full bg-backrgound-paper">
@@ -51,26 +83,9 @@ function App() {
                     <img src={getIcon(weatherData.day.weather_code)} className="w-20 h-20" />
                 </div>
 
-                {/* <div className="flex justify-center p-4 rounded-3xl"> */}
-                {/*   {weatherData.map((entry, index) => ( */}
-                {/*     <div key={index} className="flex flex-col items-center"> */}
-                {/*       <StyledText> */}
-                {/*         {entry.hour}:00 */}
-                {/*       </StyledText> */}
-                {/*       <img src={getIcon(entry.weather_code)} className="w-30 h-30" /> */}
-                {/*       <StyledText size="large"> */}
-                {/*         {entry.temp}°C */}
-                {/*       </StyledText> */}
-                {/*     </div> */}
-                {/*   ))} */}
-                {/* </div> */}
-
-                {/* <div className="flex"> */}
-                {/* </div> */}
-
                 <WeatherTemperatureChart data={weatherData} className="w-30 h-30" />
 
-                <div className="flex flex-col justify-center px-4 rounded-3xl">
+                <div className="flex flex-col justify-center px-4">
                     <div className="flex flex-col gap-2">
                         <StyledText size="large" align="left">
                                 Zadania
@@ -93,7 +108,20 @@ function App() {
                         </div>) :
                         (<></>)}
                 </div>  
-            
+                
+
+                <div className="flex, justify-start items-start px-4">
+                    <StyledText align="left">
+                        Śmieci:
+                    </StyledText>
+                    {Object.entries(getNearestTrashDays()).map(([type, date]) => (
+                        <div key={type}>
+                            <StyledText align="left">
+                                {mapTrashLabel(type) + ": " + date.toLocaleDateString()}
+                            </StyledText>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
