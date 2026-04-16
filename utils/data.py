@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+load_dotenv()
+
 import os
 import requests
 from datetime import datetime, timedelta
@@ -8,7 +10,6 @@ import config
 from utils.parse_tasks import load_and_parse_tasks
 
 
-load_dotenv()
 TODOIST_TOKEN = os.getenv("TODOIST_TOKEN")
 
 
