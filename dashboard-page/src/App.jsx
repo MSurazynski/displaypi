@@ -68,35 +68,40 @@ const WMO_TO_ICON = {
   99: "thunderstorms-rain",
 };
 
-const monthTranslated = {
-  January: "Styczeń",
-  February: "Luty",
-  March: "Marzec",
-  April: "Kwiecień",
-  May: "Maj",
-  June: "Czerwiec",
-  July: "Lipiec",
-  August: "Styczeń",
-  September: "Wrzesień",
-  October: "Październik",
-  November: "Listopad",
-  December: "Grudzień",
-};
+// capitalizes first letter of a string
+const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
-const dayTranslated = {
-  Monday: "Poniedziałek",
-  Tuesday: "Wtorek",
-  Wednesday: "Środa",
-  Thursday: "Czwartek",
-  Friday: "Piątek",
-  Saturday: "Sobota",
-  Sunday: "Niedziela",
-};
+/**
+ * Output string representation of the date or string "jutro" or string "dzisiaj".
+ */
+function formatTrashDate(date) {
+  const input = new Date(date);
+
+  const d = new Date(input.getFullYear(), input.getMonth(), input.getDate());
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const tomorrow = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+  );
+
+  if (d.getTime() === today.getTime()) return "Dzisiaj";
+  if (d.getTime() === tomorrow.getTime()) return "Jutro";
+
+  return d.toLocaleDateString("pl-PL");
+}
 
 function App() {
-  const weekDayName = dayTranslated[dateData[0].split(",")[0]];
-  const dayNumber = dateData[0].split(",")[1].split(" ")[1];
-  const monthName = monthTranslated[dateData[0].split(",")[1].split(" ").pop()];
+  const date = new Date();
+  const dayNumber = date.getDate();
+  const weekDayName = capitalize(
+    date.toLocaleDateString("pl-PL", { weekday: "long" }),
+  );
+  const monthName = capitalize(
+    date.toLocaleDateString("pl-PL", { month: "long" }),
+  );
 
   return (
     <div className="absolute w-full h-full bg-backrgound-paper">
@@ -152,7 +157,7 @@ function App() {
           {Object.entries(getNearestTrashDays()).map(([type, date]) => (
             <div key={type}>
               <StyledText align="left">
-                {mapTrashLabel(type) + ": " + date.toLocaleDateString()}
+                {mapTrashLabel(type) + ": " + formatTrashDate(date)}
               </StyledText>
             </div>
           ))}
