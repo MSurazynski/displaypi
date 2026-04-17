@@ -161,19 +161,22 @@ function App() {
           </div>
         )}
 
-        <div className="flex justify-start items-start px-4">
+        <div className="flex flex-col justify-start items-start px-4 gap-2">
           <StyledText align="left" size="large">
             Śmieci
           </StyledText>
-          {Object.entries(getNearestTrashDays())
-            .sort(([, dateA], [, dateB]) => new Date(dateA) - new Date(dateB))
-            .map(([type, date]) => (
-              <div key={type}>
-                <StyledText align="left">
-                  {mapTrashLabel(type) + ": " + formatTrashDate(date)}
-                </StyledText>
-              </div>
-            ))}
+
+          <div className="flex flex-col gap-1">
+            {Object.entries(getNearestTrashDays())
+              .sort(([, dateA], [, dateB]) => new Date(dateA) - new Date(dateB))
+              .map(([type, date]) => (
+                <div key={type}>
+                  <StyledText align="left">
+                    {mapTrashLabel(type) + ": " + formatTrashDate(date)}
+                  </StyledText>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
