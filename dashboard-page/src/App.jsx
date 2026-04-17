@@ -106,6 +106,7 @@ function App() {
   return (
     <div className="absolute w-full h-full bg-backrgound-paper">
       <div className="my-16 mx-8 flex flex-col space-y-6">
+        {/* Dzień i miesiąc */}
         <div className="flex items-center justify-between px-4 mb-0!">
           <StyledText size="veryLarge" align="left" font="bold">
             {`${weekDayName}, ${dayNumber} ${monthName}`}
@@ -116,6 +117,16 @@ function App() {
           />
         </div>
 
+        {/* 27ty miesiąca */}
+        {dayNumber == 27 && (
+          <div className="flex flex-col gap-2 px-4">
+            <StyledText align="left" size="large" font="semiBold">
+              Dzisiaj 27ty!
+            </StyledText>
+          </div>
+        )}
+
+        {/* pogoda */}
         <div className="flex flex-col gap-2 px-4">
           <StyledText align="left" size="large">
             Pogoda
