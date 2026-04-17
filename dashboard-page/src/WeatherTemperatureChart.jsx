@@ -118,7 +118,7 @@ export default function WeatherTemperatureChart({ data }) {
   const rainLinePath = hasRain ? buildStepPath(rainPoints) : "";
 
   return (
-    <div className="max-w px-4">
+    <div className="max-w">
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="h-auto w-full"
