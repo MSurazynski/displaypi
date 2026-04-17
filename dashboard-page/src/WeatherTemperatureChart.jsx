@@ -181,13 +181,13 @@ export default function WeatherTemperatureChart({ data }) {
         )}
 
         {/* Temperature area fill */}
-        <path d={tempAreaPath} fill="#FFEB3B" fillOpacity="0.25" />
+        <path d={tempAreaPath} fill="#fa7000" fillOpacity="0.25" />
 
         {/* Temperature step line */}
         <path
           d={tempLinePath}
           fill="none"
-          stroke="#FFFF00"
+          stroke="#fa7000"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="miter"
@@ -212,7 +212,7 @@ export default function WeatherTemperatureChart({ data }) {
             cx={point.x}
             cy={point.y}
             r="2.5"
-            fill="#FFFF00"
+            fill="#fa7000"
           />
         ))}
 
