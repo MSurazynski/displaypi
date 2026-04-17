@@ -100,7 +100,7 @@ function App() {
 
   return (
     <div className="absolute w-full h-full bg-backrgound-paper">
-      <div className="my-16 mx-8 flex flex-col space-y-4">
+      <div className="my-16 mx-8 flex flex-col space-y-6">
         <div className="flex items-center justify-between px-4">
           <StyledText size="veryLarge" align="left" font="bold">
             {`${weekDayName}, ${dayNumber} ${monthName}`}
@@ -111,7 +111,12 @@ function App() {
           />
         </div>
 
-        <WeatherTemperatureChart data={weatherData} className="w-30 h-30" />
+        <div className="flex flex-col gap-2 px-4">
+          <StyledText align="left" size="large">
+            Pogoda
+          </StyledText>
+          <WeatherTemperatureChart data={weatherData} className="w-30 h-30" />
+        </div>
 
         <div className="flex flex-col justify-center px-4">
           <div className="flex flex-col gap-2">
