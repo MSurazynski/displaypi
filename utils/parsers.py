@@ -76,7 +76,7 @@ def save_weather_to_json(data: dict[dict], today=True, morning=True):
         data["hourly"]["precipitation_probability"],
     ):
         timestamp = datetime.fromisoformat(time)
-        if timestamp.date() == TARGET_HOURS and timestamp.hour in target_hours:
+        if timestamp.date() == TARGET_DATE and timestamp.hour in TARGET_HOURS:
             hourly_result.append(
                 {
                     "hour": timestamp.hour,
