@@ -19,12 +19,24 @@ export default function WeatherTemperatureChart({ data }) {
   const width = 400;
   const height = 120;
 
-  const padding = {
+  const paddingNoRain = {
     top: 16,
-    right: 45,
+    right: 30,
+    bottom: 30,
+    left: 35,
+  };
+
+  const paddingWithRain = {
+    top: 16,
+    right: 55,
     bottom: 28,
     left: 35,
   };
+
+  const rainValues = hours.map((item) => item.rain_mm ?? 0);
+  const hasRain = rainValues.some((value) => value > 0);
+
+  const padding = hasRain ? paddingWithRain : paddingNoRain;
 
   const innerWidth = width - padding.left - padding.right;
   const innerHeight = height - padding.top - padding.bottom;
@@ -32,9 +44,6 @@ export default function WeatherTemperatureChart({ data }) {
   const temps = hours.map((item) => item.temp ?? 0);
   const minTemp = Math.min(...temps);
   const maxTemp = Math.max(...temps);
-
-  const rainValues = hours.map((item) => item.rain_mm ?? 0);
-  const hasRain = rainValues.some((value) => value > 0);
 
   const minRain = hasRain ? Math.min(...rainValues) : 0;
   const maxRain = hasRain ? Math.max(...rainValues) : 0;
