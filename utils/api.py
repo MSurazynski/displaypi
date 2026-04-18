@@ -5,6 +5,7 @@ import requests
 import logging
 from errors import AppError, APIError, ConfigError, JsonError
 from datetime import datetime
+import config
 
 logger = logging.getLogger(__name__)
 
@@ -128,3 +129,70 @@ def fetch_weather():
 
     logger.info("Weather API call is successfull.")
     return data
+
+
+def fetch_nasa_image_and_save() -> Path:
+    """
+    Fetches image from NASA APOD API.
+
+    Returns:
+        Path to NASA image.
+
+    Raises:
+        APIError: Any error in getting a response from NASA API.
+        JsonError: Unexpected response format.
+        ResponseDataTypeError: NASA APOD for today is video and not an image.
+    """
+    logger.info("Starting to fetch NASA API.")
+
+    URL = "https://api.nasa.gov/planetary/apod"
+    TODAY = datetime.now().date()
+    IMAGE_PATH = config.TEMP_IMAGE_DIRECTORY_PATH / config.NASA_NOT_CONVERTED_IMAGE_NAME
+
+    # Make sure directory exists
+    config.TEMP_IMAGE_DIRECTORY_PATH.mkdir(parents=True, exist_ok=True)
+
+    # If image for this day already exists return it (in case it was already fetched today)
+    if IMAGE_PATH.exists():
+        logger.info(
+            f"NASA image already exists for today: {IMAGE_PATH}. Skipping API fetch."
+        )
+        return IMAGE_PATH
+
+    params = {
+        "api_key": "DEMO_KEY",
+        "date": TODAY.isoformat(),
+    }
+
+    try:
+        response = requests.get(URL, params=params, timeout=10)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise APIError("NASA request failed.") from e
+
+    try:
+        data = response.json()
+    except ValueError as e:
+        raise JsonError("NASA response data is not a json.") from e
+
+    if not isinstance(data, dict):
+        raise JsonError("Nasa reponse data has unexpected shape.")
+
+    if not data.get("media_type") == "image":
+        raise ResponseDataTypeError("NASA APOD for today is not an image.")
+
+    image_url = data.get("url")
+    if not image_url:
+        raise JsonError("Nasa response data does not have URL to image.")
+
+    try:
+        image = requests.get(image_url, timeout=10)
+        image.raise_for_status()
+    except requests.RequestException as e:
+        raise APIError("NASA image download failed.") from e
+
+    with open(IMAGE_PATH, "wb") as img_file:
+        img_file.write(image.content)
+
+    logger.info("NASA API called successfully.")
+    return IMAGE_PATH

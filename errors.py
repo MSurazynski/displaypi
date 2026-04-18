@@ -12,3 +12,7 @@ class APIError(AppError):
 
 class JsonError(AppError):
     pass
+
+
+class ResponseDataTypeError(AppError):
+    pass

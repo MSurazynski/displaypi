@@ -3,8 +3,8 @@ import os
 import utils.dashboard_export as dashboard_export
 from utils.convert_image import convert_image
 import config
-from utils.parsers import save_tasks_to_json, save_weather_to_json, load_nasa_image
-from utils.api import fetch_tasks, fetch_weather
+from utils.parsers import save_tasks_to_json, save_weather_to_json
+from utils.api import fetch_tasks, fetch_weather, fetch_nasa_image_and_save
 import argparse
 from random import choice
 import datetime
@@ -93,7 +93,7 @@ def display_nasa_photo():
     """
 
     # 1. Load NASA photo of the day
-    load_nasa_image()
+    retry(fetch_nasa_image_and_save)
 
     # 2. Convert the NASA photo to the required format for the e-paper display
     convert_image(
@@ -118,6 +118,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(filename="displaypi.log", level=logging.INFO)
 
+    logger.info("------------------------------------------")
     logger.info(f"Started at {datetime.datetime.now()}")
 
     if args.type == "dashboard":
