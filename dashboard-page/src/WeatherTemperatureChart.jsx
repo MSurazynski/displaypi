@@ -172,7 +172,7 @@ export default function WeatherTemperatureChart({ data }) {
             textAnchor="start"
             className="fill-neutral-800 text-xs font-medium"
           >
-            {maxRain} mm
+            {maxRain * 2} mm
           </text>
         )}
 
