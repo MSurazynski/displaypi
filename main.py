@@ -3,10 +3,16 @@ import os
 import utils.dashboard_export as dashboard_export
 from utils.convert_image import convert_image
 import config
-from utils.data import load_tasks, load_date, load_weather, load_nasa_image
+from utils.parsers import save_tasks_to_json, save_weather_to_json, load_nasa_image
+from utils.api import fetch_tasks, fetch_weather
 import argparse
 from random import choice
 import datetime
+from errors import *
+from utils.retry import retry
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 parser = argparse.ArgumentParser()
@@ -24,65 +30,95 @@ def display_random_private_image():
     if image_files and MACHINE == "RPI":
         random_image = choice(image_files)
         from utils.display_image import display_image
+
         print(f"Displaying {random_image}")
         display_image(image_path=random_image)
 
+
 def display_dashboard(morning=True, today=True):
-    '''
-    Main function to generate and display the morning dashboard on the e-paper display. 
+    """
+    Main function to generate and display the morning dashboard on the e-paper display.
     It performs the following steps:
     1. Loads the necessary data (tasks, date, weather) and saves it in JSON files.
     2. Starts the Vite development server and takes a screenshot of the dashboard page.
     3. Converts the screenshot to the required format for the e-paper display.
     4. Displays the converted image on the e-paper display (only if running on a Raspberry Pi).
-    '''
-    
-    #1. Load data for the dashboard (tasks, date, weather)
-    load_tasks()
-    load_date(today=today)
-    load_weather(today=today, morning=morning) 
+    """
+
+    # Fetch all needed data and save to json files
+    try:
+        tasks = retry(fetch_tasks)
+        save_tasks_to_json(tasks=tasks)
+    except ConfigError as e:
+        logger.error(f"Config problem: {e}")
+    except APIError as e:
+        logger.error(f"API problem: {e}")
+    except JsonError as e:
+        logger.error(f"Json problem: {e}")
+
+    try:
+        data = retry(fetch_weather)
+        save_weather_to_json(data=data, today=today, morning=morning)
+    except APIError as e:
+        logger.error(f"Api problem: {e}")
+    except JsonError as e:
+        logger.error(f"Json problem: {e}")
 
     # 2. Start Vite server and take screenshot of the dashboard page
     dashboard_export.main()
 
     # 3. Convert the screenshot to the required format for the e-paper display
     convert_image(
-        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME, 
-        output_directory_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH
+        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH
+        / config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME,
+        output_directory_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH,
     )
 
     # 4. Display the converted image (only if running on the Raspberry Pi)
     if MACHINE == "RPI":
         from utils.display_image import display_image
-        display_image(image_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH / config.DASHBOARD_CONVERTED_IMAGE_NAME)
+
+        display_image(
+            image_path=config.DASHBOARD_CONVERTED_DIRECTORY_PATH
+            / config.DASHBOARD_CONVERTED_IMAGE_NAME
+        )
+
 
 def display_nasa_photo():
-    '''
-    Function to generate and display the NASA photo of the day on the e-paper display. 
+    """
+    Function to generate and display the NASA photo of the day on the e-paper display.
     It performs the following steps:
     1. Loads the NASA photo of the day and saves it in the assets/images/converted/nasa directory.
     2. Displays the NASA photo on the e-paper display (only if running on a Raspberry Pi).
-    '''
-    
+    """
+
     # 1. Load NASA photo of the day
     load_nasa_image()
 
     # 2. Convert the NASA photo to the required format for the e-paper display
     convert_image(
-        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH / config.NASA_NOT_CONVERTED_IMAGE_NAME, 
+        image_to_convert_path=config.TEMP_IMAGE_DIRECTORY_PATH
+        / config.NASA_NOT_CONVERTED_IMAGE_NAME,
         output_directory_path=config.NASA_CONVERTED_IMAGE_DIRECTORY_PATH,
-        use_smart_rotation=True
-    )  
+        use_smart_rotation=True,
+    )
 
     # 2. Display the NASA photo (only if running on the Raspberry Pi)
     if MACHINE == "RPI":
         from utils.display_image import display_image
-        display_image(image_path=config.NASA_CONVERTED_IMAGE_DIRECTORY_PATH / config.NASA_CONVERTED_IMAGE_NAME)
+
+        display_image(
+            image_path=config.NASA_CONVERTED_IMAGE_DIRECTORY_PATH
+            / config.NASA_CONVERTED_IMAGE_NAME
+        )
+
 
 # Generate morning dashboard page screenshot
 if __name__ == "__main__":
-    
-    print(f"Current time: {datetime.datetime.now()}")
+
+    logging.basicConfig(filename="displaypi.log", level=logging.INFO)
+
+    logger.info(f"Started at {datetime.datetime.now()}")
 
     if args.type == "dashboard":
         if args.daytime == "morning" and args.day == "today":
