@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import sys
 import utils.dashboard_export as dashboard_export
 from utils.convert_image import convert_image
 import config
@@ -31,7 +32,7 @@ def display_random_private_image():
         random_image = choice(image_files)
         from utils.display_image import display_image
 
-        print(f"Displaying {random_image}")
+        logger.info(f"Displaying {random_image}")
         display_image(image_path=random_image)
 
 
@@ -93,7 +94,20 @@ def display_nasa_photo():
     """
 
     # 1. Load NASA photo of the day
-    retry(fetch_nasa_image_and_save)
+    try:
+        retry(fetch_nasa_image_and_save)
+    except APIError as e:
+        logger.error(f"Api problem: {e}")
+        raise
+    except JsonError as e:
+        logger.error(f"Json problem: {e}")
+        raise
+    except ResponseDataTypeError as e:
+        logger.error(f"NASA provided a video instead of an image: {e}")
+        raise
+    except AppError:
+        logger.error("Aborting.")
+        raise SystemExit(1)
 
     # 2. Convert the NASA photo to the required format for the e-paper display
     convert_image(
@@ -124,23 +138,23 @@ if __name__ == "__main__":
     if args.type == "dashboard":
         if args.daytime == "morning" and args.day == "today":
             display_dashboard(morning=True, today=True)
-            print("Morning dashboard displayed successfully.")
+            logger.info("Morning dashboard displayed successfully.")
         elif args.daytime == "evening" and args.day == "today":
             display_dashboard(morning=False, today=True)
-            print("Evening dashboard displayed successfully.")
+            logger.info("Evening dashboard displayed successfully.")
         elif args.daytime == "morning" and args.day == "tomorrow":
             display_dashboard(morning=True, today=False)
-            print("Morning dashboard displayed successfully.")
+            logger.info("Morning dashboard displayed successfully.")
         elif args.daytime == "evening" and args.day == "tomorrow":
             display_dashboard(morning=False, today=False)
-            print("Evening dashboard displayed successfully.")
+            logger.info("Evening dashboard displayed successfully.")
     elif args.type == "nasa":
         display_nasa_photo()
-        print("NASA photo displayed successfully.")
+        logger.info("NASA photo displayed successfully.")
 
     elif args.type == "random-image":
         display_random_private_image()
-        print("Displaying random private image.")
+        logger.info("Displaying random private image.")
 
     else:
-        print("Invalid arguments provided.")
+        logger.info("Invalid arguments provided.")
