@@ -40,6 +40,7 @@ def save_tasks_to_json(tasks: list[dict]):
     if datetime.now().day == 25:
         result["tasks"].append({"title": "Wyprać pościele"})
         result["tasks"].append({"title": "Naoliwić deskę"})
+        result["tasks"].append({"title": "Kupić Mai kwiaty na 27ego?"})
 
     os.makedirs("assets/json", exist_ok=True)
     with open("assets/json/tasks.json", "w") as f:
