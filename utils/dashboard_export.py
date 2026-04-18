@@ -2,12 +2,15 @@ from pathlib import Path
 import subprocess
 import time
 import config
-import config
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def start_vite():
-    '''
+    """
     Starts the Vite development server in a detached screen session. If a session named "vite" already exists, it will be terminated first.
-    '''
+    """
     subprocess.run(
         ["screen", "-S", "vite", "-X", "quit"],
         stderr=subprocess.DEVNULL,
@@ -21,9 +24,9 @@ def start_vite():
 
 
 def stop_vite():
-    '''
+    """
     Stops the Vite development server by terminating the screen session named "vite". If no such session exists, it will simply do nothing.
-    '''
+    """
     subprocess.run(
         ["screen", "-S", "vite", "-X", "quit"],
         stderr=subprocess.DEVNULL,
@@ -31,15 +34,17 @@ def stop_vite():
 
 
 def take_screenshot():
-    '''
+    """
     Takes a screenshot of the Vite development server running on http://localhost:5173 and saves it to the output path.
-    '''
+    """
     subprocess.run(
         [
             "venv/bin/shot-scraper",
             "http://localhost:5173",
             "-o",
-            str(f"{config.TEMP_IMAGE_DIRECTORY_PATH}/{config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME}"),
+            str(
+                f"{config.TEMP_IMAGE_DIRECTORY_PATH}/{config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME}"
+            ),
             "--width",
             "480",
             "--height",
@@ -50,20 +55,21 @@ def take_screenshot():
 
 
 def main():
-    '''
-    Starts the Vite development server, waits for it to be ready, takes a screenshot of the dashboard page, and then stops the server. 
+    """
+    Starts the Vite development server, waits for it to be ready, takes a screenshot of the dashboard page, and then stops the server.
     The screenshot is saved to the specified output path.
-    '''
+    """
     start_vite()
 
-    print("Waiting for npm...")
-    time.sleep(3)
+    logger.info("Waiting for npm...")
+    time.sleep(1)
 
     take_screenshot()
     stop_vite()
 
-    print("Dashboard screenshot taken successfully.")
+    logger.info("Dashboard screenshot taken successfully.")
 
 
 if __name__ == "__main__":
     main()
+
