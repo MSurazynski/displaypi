@@ -1,6 +1,5 @@
 import weatherData from "../../assets/json/weather.json";
 import taskData from "../../assets/json/tasks.json";
-import dateData from "../../assets/json/date.json";
 import trashData from "../../assets/json/trash.json";
 const icons = import.meta.glob("./assets/icons/*.svg", { eager: true });
 import StyledText from "@comp/StyledText";
@@ -106,7 +105,7 @@ function App() {
   return (
     <div className="absolute w-full h-full bg-backrgound-paper">
       <div className="my-16 mx-8 flex flex-col space-y-6">
-        {/* Dzień i miesiąc */}
+        {/* Day and month */}
         <div className="flex items-center justify-between px-4 mb-0!">
           <StyledText size="veryLarge" align="left" font="bold">
             {`${weekDayName}, ${dayNumber} ${monthName}`}
@@ -117,7 +116,7 @@ function App() {
           />
         </div>
 
-        {/* 27ty miesiąca */}
+        {/* anniversary */}
         {dayNumber == 27 && (
           <div className="flex flex-col gap-2 px-4">
             <StyledText align="left" size="large" font="semiBold">
@@ -126,7 +125,7 @@ function App() {
           </div>
         )}
 
-        {/* pogoda */}
+        {/* weather */}
         <div className="flex flex-col">
           <div className="flex flex-col gap-2 px-4">
             <StyledText align="left" size="large">
@@ -137,6 +136,7 @@ function App() {
           <WeatherTemperatureChart data={weatherData} className="w-30 h-30" />
         </div>
 
+        {/* tasks */}
         {taskData.tasks.length > 0 ? (
           <div className="flex flex-col justify-center px-4">
             <div className="flex flex-col gap-2">
@@ -177,7 +177,7 @@ function App() {
           </div>
         )}
 
-        {/* Component ze śmieciami */}
+        {/* Trash */}
         <div className="flex flex-col justify-start items-start px-4 gap-2">
           <StyledText align="left" size="large">
             Śmieci
