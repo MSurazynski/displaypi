@@ -134,7 +134,7 @@ function App() {
           <WeatherTemperatureChart data={weatherData} className="w-30 h-30" />
         </div>
 
-        {taskData.tasks > 0 ? (
+        {taskData.tasks.length > 0 ? (
           <div className="flex flex-col justify-center px-4">
             <div className="flex flex-col gap-2">
               <StyledText size="large" align="left">
