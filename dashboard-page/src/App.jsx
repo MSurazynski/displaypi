@@ -3,8 +3,8 @@ import taskData from "../../assets/json/tasks.json";
 import dateData from "../../assets/json/date.json";
 import trashData from "../../assets/json/trash.json";
 const icons = import.meta.glob("./assets/icons/*.svg", { eager: true });
-import StyledText from "./StyledText";
-import WeatherTemperatureChart from "./WeatherTemperatureChart";
+import StyledText from "@comp/StyledText";
+import WeatherTemperatureChart from "@comp/WeatherTemperatureChart";
 
 function getIcon(code) {
   const name = WMO_TO_ICON[code];
