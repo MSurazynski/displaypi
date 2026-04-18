@@ -172,6 +172,7 @@ export default function WeatherTemperatureChart({ data }) {
             textAnchor="start"
             className="fill-neutral-800 text-xs font-medium"
           >
+            {/* max graph heigh = max tem, half graph heigh = max rain => max graph height = 2 * max rain */}
             {maxRain * 2} mm
           </text>
         )}
