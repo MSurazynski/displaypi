@@ -146,7 +146,9 @@ function App() {
                   key={index}
                   className="flex-col items-start justify-items-start space-x-4"
                 >
-                  <StyledText>{index + 1 + ". " + entry.title}</StyledText>
+                  <StyledText align="left">
+                    {index + 1 + ". " + entry.title}
+                  </StyledText>
                   <hr className="w-full border-t text-text mt-2" />
                 </div>
               ))}
@@ -172,6 +174,7 @@ function App() {
           </div>
         )}
 
+        {/* Component ze śmieciami */}
         <div className="flex flex-col justify-start items-start px-4 gap-2">
           <StyledText align="left" size="large">
             Śmieci
