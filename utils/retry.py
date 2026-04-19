@@ -23,7 +23,7 @@ def retry(operation, attempts=3, delay=1):
     for attempt in range(1, attempts + 1):
         try:
             return operation()
-        except (APIError, JsonError):
+        except (APIError, JsonError) as e:
             last_error = e
             logger.warning(
                 f"Attempt {attempt} / {attempts} to run {str(operation)} failed: {e}"
