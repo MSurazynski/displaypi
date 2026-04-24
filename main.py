@@ -95,7 +95,7 @@ def display_nasa_photo():
 
     # 1. Load NASA photo of the day
     try:
-        retry(fetch_nasa_image_and_save)
+        retry(fetch_nasa_image_and_save, attempts=5)
     except APIError as e:
         logger.error(f"Api problem: {e}")
         raise
