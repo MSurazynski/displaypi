@@ -14,7 +14,8 @@ RUN echo "Installing system build dependencies: gcc, build-essential, python3-de
 RUN echo "Installing curl and ca-certificates..." \
     && apt-get install -y --no-install-recommends \
         curl \
-        ca-certificates
+        ca-certificates \
+        screen
 
 # Install just command runner
 RUN echo "Installing just..." \
