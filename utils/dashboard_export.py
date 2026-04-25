@@ -39,7 +39,7 @@ def take_screenshot():
     """
     subprocess.run(
         [
-            "venv/bin/shot-scraper",
+            "shot-scraper",
             "http://localhost:5173",
             "-o",
             str(
