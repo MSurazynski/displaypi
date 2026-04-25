@@ -1,19 +1,19 @@
 import sys
-sys.path.append('/home/michal/e-Paper/RaspberryPi_JetsonNano/python/lib')
-from waveshare_epd import epd7in3e
+import epaper
 from PIL import Image
 import logging
 from pathlib import Path
 
 
 logging.basicConfig(level=logging.DEBUG)
-epd = epd7in3e.EPD()
+epd = epaper.epaper("epd7in3e").EPD()
+
 
 def display_image(image_path: Path):
-    '''
+    """
     Displays the converted image on the e-paper display.
     @param image_path: Path to the converted image (must be 800x480 and in BMP format).
-    '''
+    """
     if not image_path.exists():
         logging.error(f"Image not found: {image_path}")
         return
