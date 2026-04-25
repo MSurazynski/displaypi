@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 import sys
 import utils.dashboard_export as dashboard_export
+from utils.require_assets import require_assets_structure
 from utils.convert_image import convert_image
 import config
 from utils.parsers import save_tasks_to_json, save_weather_to_json
@@ -145,6 +146,7 @@ def display_nasa_photo():
 if __name__ == "__main__":
 
     setup_logging()
+    require_assets_structure()
 
     logger.info("------------------------------------------")
     logger.info(f"Started at {datetime.datetime.now()}")
