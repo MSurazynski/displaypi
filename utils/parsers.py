@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import json
 import time
 import config.config as config
-from errors import *
+from errors.errors import *
 import logging
 
 logger = logging.getLogger(__name__)

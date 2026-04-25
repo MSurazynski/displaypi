@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 import requests
 import logging
-from errors import AppError, APIError, ConfigError, JsonError
+from errors.errors import *
 from datetime import datetime
 import config.config as config
 

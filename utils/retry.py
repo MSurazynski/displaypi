@@ -1,6 +1,6 @@
 import time
 import logging
-from errors import *
+from errors.errors import *
 
 logger = logging.getLogger(__name__)
 
