@@ -26,6 +26,10 @@ COPY . .
 
 RUN uv sync --locked --no-dev
 
+# Install browser used by shot-scraper / Playwright
+RUN echo "Installing shot-scraper browser..." \
+    && uv run shot-scraper install
+
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
