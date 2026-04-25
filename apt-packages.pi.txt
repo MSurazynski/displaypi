@@ -1,3 +1,0 @@
-python3-gpiozero
-python3-lgpio
-python3-rpi-lgpio
