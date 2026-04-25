@@ -12,4 +12,5 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "requests>=2.33.1",
     "rpi-lgpio>=0.6",
+    "waveshare-epaper>=1.4.0",
 ]

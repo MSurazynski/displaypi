@@ -108,6 +108,7 @@ dependencies = [
     { name = "python-dotenv" },
     { name = "requests" },
     { name = "rpi-lgpio" },
+    { name = "waveshare-epaper" },
 ]
 
 [package.metadata]
@@ -119,6 +120,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "requests", specifier = ">=2.33.1" },
     { name = "rpi-lgpio", specifier = ">=0.6" },
+    { name = "waveshare-epaper", specifier = ">=1.4.0" },
 ]
 
 [[package]]
@@ -308,6 +310,12 @@ wheels = [
 ]
 
 [[package]]
+name = "rpi-gpio"
+version = "0.7.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c4/0f/10b524a12b3445af1c607c27b2f5ed122ef55756e29942900e5c950735f2/RPi.GPIO-0.7.1.tar.gz", hash = "sha256:cd61c4b03c37b62bba4a5acfea9862749c33c618e0295e7e90aa4713fb373b70", size = 29090, upload-time = "2022-02-06T15:15:06.022Z" }
+
+[[package]]
 name = "rpi-lgpio"
 version = "0.6"
 source = { registry = "https://pypi.org/simple" }
@@ -329,10 +337,29 @@ wheels = [
 ]
 
 [[package]]
+name = "spidev"
+version = "3.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/67/87/039b6eeea781598015b538691bc174cc0bf77df9d4d2d3b8bf9245c0de8c/spidev-3.8.tar.gz", hash = "sha256:2bc02fb8c6312d519ebf1f4331067427c0921d3f77b8bcaf05189a2e8b8382c0", size = 13893, upload-time = "2025-09-15T18:56:20.672Z" }
+
+[[package]]
 name = "urllib3"
 version = "2.6.3"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6661c76461e25f024d5a38a46f04aaca912426a2b1d3/urllib3-2.6.3.tar.gz", hash = "sha256:1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed", size = 435556, upload-time = "2026-01-07T16:24:43.925Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/39/08/aaaad47bc4e9dc8c725e68f9d04865dbcb2052843ff09c97b08904852d84/urllib3-2.6.3-py3-none-any.whl", hash = "sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4", size = 131584, upload-time = "2026-01-07T16:24:42.685Z" },
+]
+
+[[package]]
+name = "waveshare-epaper"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "rpi-gpio" },
+    { name = "spidev" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/53/5c/71900a7901ca8fbdd59402e675585bdd2e94e28296729c06a883b5af51a3/waveshare_epaper-1.4.0.tar.gz", hash = "sha256:80e73bfdd51ce2fa644469503262e38cfffd385c102bf6716c183f309eb2679c", size = 73229, upload-time = "2026-02-21T07:34:16.378Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d7/ea/2b8de292b908e06e0d12a0b4ace188b3e60584229c66ffcdf99261325148/waveshare_epaper-1.4.0-py2.py3-none-any.whl", hash = "sha256:e04fc8617cc03b3d8a258cc4c1f187fe1ced993e8a9f220aa9a150488d50dd40", size = 197788, upload-time = "2026-02-21T07:34:18.223Z" },
 ]
