@@ -1,5 +1,4 @@
 set shell := ["bash", "-c"]
-venv_python := "venv/bin/python3"
 
 sync:
     @echo "Starting syncing..."
