@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess
 import time
-import config
+import config.config as config
 import logging
 
 logger = logging.getLogger(__name__)
@@ -72,4 +72,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

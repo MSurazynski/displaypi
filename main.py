@@ -4,7 +4,7 @@ import sys
 import utils.dashboard_export as dashboard_export
 from utils.require_assets import require_assets_structure
 from utils.convert_image import convert_image
-import config
+import config.config as config
 from utils.parsers import save_tasks_to_json, save_weather_to_json
 from utils.api import fetch_tasks, fetch_weather, fetch_nasa_image_and_save
 import argparse

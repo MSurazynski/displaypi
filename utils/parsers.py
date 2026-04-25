@@ -7,7 +7,7 @@ import requests
 from datetime import datetime, timedelta
 import json
 import time
-import config
+import config.config as config
 from errors import *
 import logging
 

@@ -5,7 +5,7 @@ import requests
 import logging
 from errors import AppError, APIError, ConfigError, JsonError
 from datetime import datetime
-import config
+import config.config as config
 
 logger = logging.getLogger(__name__)
 
