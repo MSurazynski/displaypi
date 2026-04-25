@@ -9,7 +9,7 @@ import AniversaryView from "@comp/AniversaryView";
 
 function App() {
   return (
-    <div className="absolute w-full h-full bg-backrgound-paper">
+    <div className="w-[480px] h-[800px] overflow-hidden bg-backrgound-paper">
       <div className="my-16 mx-8 flex flex-col space-y-6">
         {/* header */}
         <DateHeaderView weatherData={weatherData} />

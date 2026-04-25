@@ -1,3 +1,5 @@
+import shutil
+from playwright.sync_api import sync_playwright
 from pathlib import Path
 import subprocess
 import time
@@ -35,23 +37,37 @@ def stop_vite():
 
 def take_screenshot():
     """
-    Takes a screenshot of the Vite development server running on http://localhost:5173 and saves it to the output path.
+    Takes a screenshot of the Vite development server running on http://localhost:5173
+    and saves it to the output path.
     """
-    subprocess.run(
-        [
-            "shot-scraper",
-            "http://localhost:5173",
-            "-o",
-            str(
-                f"{config.TEMP_IMAGE_DIRECTORY_PATH}/{config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME}"
-            ),
-            "--width",
-            "480",
-            "--height",
-            "800",
-        ],
-        check=True,
+    output_path = (
+        config.TEMP_IMAGE_DIRECTORY_PATH / config.DASHBOARD_NOT_CONVERTED_IMAGE_NAME
     )
+
+    chromium = shutil.which("chromium") or shutil.which("chromium-browser")
+
+    if chromium is None:
+        raise RuntimeError("Chromium not found. Install chromium or chromium-browser.")
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            executable_path=chromium,
+            headless=True,
+            args=["--no-sandbox"],
+        )
+
+        page = browser.new_page(
+            viewport={"width": 480, "height": 800},
+            device_scale_factor=1,
+        )
+
+        page.goto("http://localhost:5173", wait_until="networkidle")
+        page.screenshot(
+            path=str(output_path),
+            full_page=False,
+        )
+
+        browser.close()
 
 
 def main():

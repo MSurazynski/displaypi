@@ -8,7 +8,8 @@ RUN echo "Installing system build dependencies: gcc, build-essential, python3-de
     && apt-get install -y --no-install-recommends \
         gcc \
         build-essential \
-        python3-dev
+        python3-dev \
+        chromium
 
 # Install tools needed for downloading/installing just
 RUN echo "Installing curl and ca-certificates..." \
@@ -25,10 +26,6 @@ RUN echo "Installing just..." \
 COPY . .
 
 RUN uv sync --locked --no-dev
-
-# Install browser used by shot-scraper / Playwright
-RUN echo "Installing shot-scraper browser..." \
-    && uv run shot-scraper install
 
 RUN chmod +x entrypoint.sh
 

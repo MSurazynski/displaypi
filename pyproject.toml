@@ -9,9 +9,9 @@ dependencies = [
     "lgpio>=0.2.2.0",
     "numpy>=2.4.4",
     "pillow>=12.2.0",
+    "playwright>=1.58.0",
     "python-dotenv>=1.2.2",
     "requests>=2.33.1",
     "rpi-lgpio>=0.6",
-    "shot-scraper>=1.9.1",
     "waveshare-epaper>=1.4.0",
 ]
