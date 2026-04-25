@@ -26,7 +26,21 @@ load_dotenv()
 MACHINE = os.getenv("MACHINE")
 
 
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        handlers=[
+            logging.StreamHandler(sys.stdout),
+        ],
+    )
+
+
 def display_random_private_image():
+    """
+    Displays random private photo from the images saved in assets/converted/private-images.
+    """
+
     image_files = list(config.PRIVATE_IMAGES_DIRECTORY.glob("*.bmp"))
     if image_files and MACHINE == "RPI":
         random_image = choice(image_files)
@@ -130,7 +144,7 @@ def display_nasa_photo():
 # Generate morning dashboard page screenshot
 if __name__ == "__main__":
 
-    logging.basicConfig(filename="displaypi.log", level=logging.INFO)
+    setup_logging()
 
     logger.info("------------------------------------------")
     logger.info(f"Started at {datetime.datetime.now()}")
