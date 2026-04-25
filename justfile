@@ -29,3 +29,11 @@ display-random-private-image:
     @echo "Just: Starting display-random-private-image..."
     uv run main.py --type random-image
     @echo "Just: Finished display-private-random-image..."
+
+docker-run command:
+    @echo "Just: Running Docker command: {{command}}"
+    sudo docker run --rm \
+        --privileged \
+        -v /dev:/dev \
+        -v /run/udev:/run/udev:ro \
+        displaypi {{command}}
