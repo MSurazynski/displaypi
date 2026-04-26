@@ -1,14 +1,21 @@
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-# App lives here inside the container
+# App lives here inside the container.
 WORKDIR /displayi
 
-# Install system packages:
-# - gcc/build-essential/python3-dev: needed by some Python packages during install
-# - chromium: used by Playwright for screenshots
-# - curl/ca-certificates: needed to install just
-# - screen: used by your Python code to run Vite in the background
-# - nodejs/npm: needed to run the Vite dashboard with `npm run dev`
+# Install base system packages.
+#
+# gcc/build-essential/python3-dev:
+#   Needed if any Python packages compile native extensions.
+#
+# chromium:
+#   Used by Playwright to take screenshots.
+#
+# curl/ca-certificates/gnupg:
+#   Needed to install external tools and NodeSource's Node.js repository.
+#
+# screen:
+#   Used by your Python code to run the Vite dev server in the background.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         gcc \
@@ -17,31 +24,42 @@ RUN apt-get update \
         chromium \
         curl \
         ca-certificates \
+        gnupg \
         screen \
-        nodejs \
-        npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Install just command runner
+# Install Node.js 22.
+#
+# Do not use Debian Bookworm's default nodejs package here because
+# modern Vite versions require Node 20.19+ or 22.12+.
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && node --version \
+    && npm --version \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install just command runner.
 RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh \
     | bash -s -- --to /usr/local/bin \
     && just --version
 
-# Copy the project into the image
+# Copy the project into the image.
 COPY . .
 
-# Install Python dependencies from uv.lock
+# Install Python dependencies from uv.lock.
 RUN uv sync --locked --no-dev
 
 # Install frontend dependencies for the Vite dashboard.
-# IMPORTANT: change `dashboard-page` to the directory that contains your package.json.
+#
+# This assumes your Vite app is at:
+#   /displayi/dashboard-page
+#
+# It must be the directory containing package.json and package-lock.json.
 RUN cd dashboard-page && npm ci
 
-# Make the entrypoint executable
+# Make the entrypoint executable.
 RUN chmod +x entrypoint.sh
 
-# Use your entrypoint script
 ENTRYPOINT ["./entrypoint.sh"]
 
-# Default command when no command is provided
 CMD ["help"]
