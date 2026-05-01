@@ -10,7 +10,13 @@ from utils.api import fetch_tasks, fetch_weather, fetch_nasa_image_and_save
 import argparse
 from random import choice
 import datetime
-from errors.errors import *
+from errors.errors import (
+    AppError,
+    ConfigError,
+    APIError,
+    JsonError,
+    ResponseDataTypeError,
+)
 from utils.retry import retry
 import logging
 
